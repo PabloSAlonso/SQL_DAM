@@ -36,4 +36,23 @@ JOIN depart USING(IDDEPART) WHERE depart.nombre = 'CONTABILIDAD';
 
 60. SELECT empleados.apellido FROM empleados JOIN depart USING(IDDEPART)
 WHERE empleados.salario > ALL
-(SELECT empleados.salario FROM empleados WHERE depart.nombre = 'ventas');
+(SELECT empleados.salario FROM empleados WHERE IDDEPART 
+IN(SELECT IDDEPART from depart WHERE nombre = 'ventas'));
+
+61. SELECT depart.nombre, COUNT(*) AS 'trabajadores' FROM depart 
+JOIN empleados USING(IDDEPART) GROUP BY depart.nombre;
+
+62. SELECT MAX(empleados.salario), MIN(empleados.salario), 
+AVG(empleados.salario) from empleados JOIN depart USING(iddepart)
+WHERE depart.nombre = 'ventas';
+
+63. SELECT depart.IDDEPART, depart.NOMBRE, MAX(empleados.SALARIO), 
+MIN(empleados.SALARIO), AVG(empleados.SALARIO) FROM depart 
+JOIN empleados USING(IDDEPART)GROUP BY IDDEPART;
+
+64. SELECT depart.IDDEPART, depart.NOMBRE, empleados.OFICIO, 
+MAX(empleados.SALARIO) AS 'maximo', MIN(empleados.SALARIO), AVG(empleados.SALARIO)
+from depart JOIN empleados USING(IDDEPART) 
+GROUP BY depart.IDDEPART,empleados.OFICIO HAVING maximo < 2000;
+
+65. 
