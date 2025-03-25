@@ -1,0 +1,39 @@
+52.
+SELECT empleados.apellido, depart.nombre from empleados, depart 
+WHERE empleados.iddepart = depart.iddepart;
+
+53.
+SELECT empleados.apellido, depart.nombre from empleados,depart 
+WHERE empleados.iddepart = depart.iddepart AND depart.nombre 
+NOT LIKE 'ventas';
+
+54.
+SELECT * from empleados,depart 
+WHERE depart.LOC LIKE 'Madrid' AND empleados.iddepart = depart.iddepart;
+
+55.
+SELECT asignatura.nombre, alumnos.nombre, notas.nota 
+FROM asignatura,alumnos,notas
+WHERE asignatura.COD = alumnos.codigo AND notas.asignatura = asignaturas.COD;
+
+56.
+SELECT asignaturas.nombre, alumnos.nombre, alumnos.apellidos 
+FROM asignaturas JOIN alumnos JOIN notas 
+ON asignaturas.COD = notas.asignatura AND alumnos.codigo = notas.alumno
+WHERE asignaturas.nombre = 'FOL';
+
+57. SELECT notas.nota FROM asignaturas JOIN alumnos JOIN notas 
+on asignaturas.COD = notas.asignatura and alumnos.codigo = notas.alumno 
+WHERE alumnos.nombre like 'Ray' and asignaturas.nombre like 'FOL';
+
+58. SELECT empleados.apellido, empleados.salario, depart.nombre 
+FROM empleados JOIN depart USING(IDDEPART) WHERE empleados.OFICIO = 
+(SELECT empleados.OFICIO FROM empleados WHERE apellido = 'Gil' ) 
+AND COMISION IS NULL;
+
+59. SELECT AVG(empleados.salario) AS 'Media' FROM empleados 
+JOIN depart USING(IDDEPART) WHERE depart.nombre = 'CONTABILIDAD';
+
+60. SELECT empleados.apellido FROM empleados JOIN depart USING(IDDEPART)
+WHERE empleados.salario > ALL
+(SELECT empleados.salario FROM empleados WHERE depart.nombre = 'ventas');
