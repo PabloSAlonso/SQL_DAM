@@ -3,7 +3,7 @@
 3-CREATE TABLE juegos (
 	IDJUEGO TINYINT PRIMARY KEY AUTO_INCREMENT,
 	Nombre CHAR(40) NOT NULL UNIQUE,
-	Plataforma SET('PSP','Wii','Playstation','XBOX','Nintendo 		DS','PC') COMMENT 'Plataformas soportadas por el juego',
+	Plataforma SET('PSP','Wii','Playstation','XBOX','Nintendo DS','PC') COMMENT 'Plataformas soportadas por el juego',
     PrecioVenta FLOAT(10,2)NULL,
     PrecioAlquiler FLOAT(10,2),
     StockVenta BIGINT DEFAULT (10) NOT NULL,
@@ -29,7 +29,6 @@
 	('Full Throttle',"PSP, Wii, Playstation, XBOX, PC, Nintendo DS", 42.00, 3.50, 4, NULL), 
 	('The dig', 'PC', 50.2, Null, 4, 5),
 	('La abadía del crimen', 'PC', 25, 5, 4, 3);
-	 
 
 9.-	CREATE TABLE socios (
     NúmeroSocios TINYINT PRIMARY KEY AUTO_INCREMENT ,
@@ -102,12 +101,12 @@ Valores 11 y 22 no existen en socios y juegos respectivamente
 	ENGINE = MyISAM;
 
 16.-	INSERT INTO ventas (NumSocio, Juego, FechaVenta) VALUES
-	('1', '2', DEFAULT),
- 	('4', '5', DEFAULT),
+		('1', '2', DEFAULT),
+ 		('4', '5', DEFAULT),
     	('2', '7', DEFAULT),
-   	('4', '1', DATE_ADD(NOW(), INTERVAL 1 WEEK)),
- 	('5', '2', DEFAULT),
- 	('2', '7', DEFAULT);
+   		('4', '1', DATE_ADD(NOW(), INTERVAL 1 WEEK)),
+ 		('5', '2', DEFAULT),
+ 		('2', '7', DEFAULT);
 
 17.- SHOW INDEX FROM socios;
 
@@ -121,7 +120,7 @@ Valores 11 y 22 no existen en socios y juegos respectivamente
 21.-	ALTER TABLE ventas ADD (nueva2 INT, nueva3 INT);
 
 22.-	ALTER TABLE ventas CHANGE nueva2 nova2 VARCHAR(n);
-	ALTER TABLE ventas CHANGE nueva3 nova3 VARCHAR(n);
+		ALTER TABLE ventas CHANGE nueva3 nova3 VARCHAR(n);
 
 23.-	ALTER TABLE ventas MODIFY nova2 INT;
 
