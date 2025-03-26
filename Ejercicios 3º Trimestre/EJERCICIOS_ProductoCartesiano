@@ -77,5 +77,6 @@ left join depart;
 71. SELECT depart.nombre, empleados.apellido from depart natural 
 right join depart;
 
-72. SELECT asignaturas.NOMBRE, alumnos.Nombre, Notas.nota FROM asignaturas
-JOIN alumnos JOIN notas on asignaturas.COD = notas.asignatura AND asignatura.COD = alumnos.codigo
+72. SELECT asignaturas.NOMBRE, alumnos.Nombre, Notas.nota 
+FROM asignaturas JOIN alumnos JOIN notas on 
+asignaturas.COD = notas.asignatura AND asignatura.COD = alumnos.codigo 
