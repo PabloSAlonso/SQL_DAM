@@ -1,18 +1,20 @@
 Ejercicio 1
 
 CREATE or replace DATABASE formula1 CHARACTER SET utf8;
+
 CREATE or replace table formula1.escuderias(
 idEscuderia SMALLINT primary key not null AUTO_INCREMENT,
 nombre char(25) unique not null,
 sede varchar(20) comment "sede de la escuderia",
-carreras decimal(6,2) DEFAULT 0.0 not null,
+carreras float(6,2) DEFAULT 0.0 not null,
 victorias mediumint(3) zerofill not null,
 INDEX(carreras, victorias)
 )ENGINE=INNODB CHARACTER set utf8;
+
 CREATE or replace TABLE formula1.pilotos(
 idpiloto int PRIMARY KEY NOT null AUTO_INCREMENT,
 nombre varchar(20) unique not null,
-fechaNaci datetime default now() comment "Fecha de nacimiento",
+fechaNaci CURRENT_DATE default now() comment "Fecha de nacimiento",
 escu SMALLINT,
 campeon bigint unsigned DEFAULT 2 COMMENT "Nº veces campeon",
 estado set ('titular','retirado','probador') DEFAULT 'titular',
@@ -24,13 +26,13 @@ on UPDATE CASCADE
 Ejercicio 2
 
 INSERT into formula1.pilotos
-(idPiloto, nombre, fechaNaci, escu, campeon, estado) values
-(1,"Max Verstappen", DEFAULT, 3, 4, 'Titular'),
-(44, "Lewis Hamilton", DEFAULT, 2, 7, 'Titular'),
-(55, "Carlos Sainz", '1994-09-01', 5, 0, null),
-(14, "Fernando Alonso", DATE_ADD(CURRENT_DATE(), INTERVAL -43 YEAR), 4, 2, "Titular,Retirado"),
-(11,'Checo Perez',DEFAULT,3,0,'Retirado'),
-(77,'Valterri Bottas',NULL,1,DEFAULT,'Probador');
+(nombre, fechaNaci, escu, campeon, estado) values
+("Max Verstappen", DEFAULT, 3, 4, 'Titular'),
+("Lewis Hamilton", DEFAULT, 2, 7, 'Titular'),
+("Carlos Sainz", '1994-09-01', 5, 0, null),
+("Fernando Alonso", DATE_ADD(CURRENT_DATE(), INTERVAL -43 YEAR), 4, 2, "Titular,Retirado"),
+("Checo Perez",DEFAULT,3,0,'Retirado'),
+("Valterri Bottas",NULL,1,DEFAULT,'Probador');
 
 INSERT INTO formula1.escuderias(nombre, sede, carreras, victorias) values
 ("mercedes", null,248.5,125),
@@ -50,7 +52,10 @@ null DEFAULT 5;
 C: 
 ALTER table pilotos drop INDEX nombre;
 D:
+DELETE FROM pilotos WHERE IFNULL(campeon,0) <= 0;
+E:
 UPDATE pilotos set campeon=campeon+1 WHERE campeon=0; 
+F:
 update pilotos set estado="retirado" AND escu=null WHERE estado is null ;
 E: 
 TRUNCATE * from pilotos;
@@ -67,8 +72,8 @@ SELECT TRUNCATE(carreras,0) FROM escuderias;
 C: 
 SELECT min(carreras) as carreras, max(victorias) as victorias from escuderias;
 D:
-SELECT nombre,sede, IFnull(length(nombre),0)+ifnull(length(sede),0) 
-as total from escuderias order by total DESC limit 2,1;
+SELECT nombre,sede, IFNULL(length(nombre),0)+ IFNULL(length(sede),0) 
+as total from escuderias order by total DESC limit 2,1; -- el 2 son los valores q ommite y el uno los que coge
 E: 
 SELECT group_concat(nombre) as 'todos los nombres' FROM pilotos;
 
