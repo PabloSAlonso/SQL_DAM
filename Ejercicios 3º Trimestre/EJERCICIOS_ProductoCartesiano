@@ -82,5 +82,5 @@ FROM asignaturas JOIN alumnos JOIN notas on
 asignaturas.COD = notas.asignatura AND asignatura.COD = alumnos.codigo;
 
 73. SELECT depart.IDDEPART, depart.nombre FROM depart JOIN empleados
-USING(IDDEPART) WHERE empleados.salario = MAX(salario);
+USING(IDDEPART) order by empleados.salario DESC LIMIT 1;
 
