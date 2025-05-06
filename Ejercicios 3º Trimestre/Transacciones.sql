@@ -1,0 +1,31 @@
+CREATE TABLE prueba(id INT) ENGINE=InnoDB;
+INSERT INTO prueba (id) VALUES (1),(2);
+
+START TRANSACTION;
+INSERT INTO prueba VALUES (3);
+SELECT * FROM prueba;
+COMMIT;
+
+-- TRANSACCIONES 
+
+58.
+
+59.
+
+60.
+
+62.
+
+63.
+
+66.
+
+67.
+
+68.
+
+69.
+
+70.
+
+71.

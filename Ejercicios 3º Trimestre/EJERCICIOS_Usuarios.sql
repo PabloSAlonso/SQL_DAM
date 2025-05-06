@@ -77,22 +77,25 @@ DROP VIEW IF EXISTS ed;
 SELECT * FROM ed2;
 
 39.
-CREATE VIEW notas_asig_alu AS SELECT * FROM alumnos 
-JOIN asignaturas JOIN notas asignaturas.COD = notas.asignatura 
-AND alumnos.codigo = notas.alumno
+CREATE OR REPLACE VIEW notas_asig_alu AS 
+SELECT alumno, asignatura, nota, fecha, alumnos.nombre, codigo,  
+apellidos, altura, aula, cod, asignaturas.asignaturas.nombre 
+FROM asignaturas JOIN alumnos JOIN notas 
+on asignaturas.COD = notas.asignatura and alumnos.codigo = notas.alumno;
 
 40.
 SELECT * FROM  notas_asig_alu
 
 42.
-SHOW CREATE notas_asig_alu;
+SHOW CREATE VIEW notas_asig_alu;
 
 43.
 CREATE VIEW notasAlu (nombre, materia, calificacion) AS 
-SELECT nombre, asignatura, nota FROM notas_asig_alu;
+SELECT nombre, asignatura, nota FROM notas_asig_alu where nota >= 5;
 
 45.
-ALTER VIEW notasAlu ADD apellido;
+ALTER VIEW notasAlu AS SELECT nombre, asignatura, nota, apellidos 
+FROM notas_asig_alu;
 
 47.
 CREATE VIEW salarios (apellido, localizacion) AS 
@@ -105,8 +108,5 @@ CREATE VIEW empleados (nombre, departamento) AS
 SELECT apellidos, nombre FROM empleados JOIN depart USING (IDDEPART);
 
 53.
-CREATE VIEW led AS SELECT * FROM empleados JOIN depart USING (IDDEPART);
-
-55.
---* Ninguna, no hubo cambios en la vista
-SELECT * FROM led;
+CREATE VIEW led AS SELECT * FROM empleados right JOIN depart 
+USING (IDDEPART);
